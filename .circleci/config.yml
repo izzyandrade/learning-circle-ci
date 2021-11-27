@@ -23,10 +23,10 @@ jobs:
           command: 'echo World!'
 
 workflows:
-  hello-world-workflow:
+  welcome:
     jobs:
+      - welcome/run
       - print_hello
-
       - print_world:
           requires:
             - print_hello
