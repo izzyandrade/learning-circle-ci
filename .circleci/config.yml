@@ -22,11 +22,21 @@ jobs:
           name: 'Say World'
           command: 'echo World!'
 
+  print_my_name:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: 'This prints my name from the env vars of the project'
+          command: 'echo My name is $MY_NAME'
+
 workflows:
   welcome:
     jobs:
-      - welcome/run
+      # - welcome/run
       - print_hello
       - print_world:
           requires:
             - print_hello
+      - print_my_name
