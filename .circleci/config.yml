@@ -13,23 +13,30 @@ jobs:
           name: 'Say Hello'
           command: 'echo Hello,'
 
-  print_world:
+  save_hello_world_output:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
-          name: 'Say World'
-          command: 'echo World!'
+          name: "Save text to file",
+          command: echo "text to output here" > output.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - output.txt
 
-  print_my_name:
+  print_output_file:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
-          name: 'This prints my name from the env vars of the project'
-          command: 'echo My name is $MY_NAME'
+          name: "Trying to print text from the file"
+          command: cat output.txt
+  
 
 workflows:
   welcome:
