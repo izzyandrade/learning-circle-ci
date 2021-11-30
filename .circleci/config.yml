@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Save text to file",
+          name: 'Save text to file'
           command: echo "text to output here" > output.txt
       - persist_to_workspace:
           root: /tmp/workspace
@@ -34,9 +34,8 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run:
-          name: "Trying to print text from the file"
+          name: 'Trying to print text from the file'
           command: cat output.txt
-  
 
 workflows:
   welcome:
