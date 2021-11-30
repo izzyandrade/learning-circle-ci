@@ -13,9 +13,9 @@ jobs:
           name: 'Save text to file'
           command: echo "text to output here" > output.txt
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: .
           paths:
-            - output.txt
+            - .
 
   print_output_file:
     docker:
@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - run:
           name: 'Trying to print text from the filename'
           command: cat output.txt
