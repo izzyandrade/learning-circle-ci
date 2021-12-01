@@ -16,8 +16,10 @@ jobs:
     steps:
       - run: return 1
 
-      - run: echo "This failed on purpose!"
-        when: on_fail
+      - run:
+          name: 'On Fail Command'
+          command: echo "This failed on purpose!"
+          when: on_fail
 
   # save_hello_world_output:
   #   docker:
