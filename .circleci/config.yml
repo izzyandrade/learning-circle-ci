@@ -1,5 +1,11 @@
 version: 2.1
 
+commands:
+  print_pipeline_id:
+    description: 'A very simple command for demonstration purposes'
+    steps:
+      - run: echo $CIRCLE_WORKFLOW_ID
+
 orbs:
   welcome: circleci/welcome-orb@0.4.1
 
@@ -27,6 +33,7 @@ jobs:
       - run:
           name: 'Trying to print text from the filename'
           command: cat ~/output.txt
+      - print_pipeline_id
 
 workflows:
   welcome:
