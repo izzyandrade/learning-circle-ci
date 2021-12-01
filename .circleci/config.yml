@@ -10,30 +10,39 @@ orbs:
   welcome: circleci/welcome-orb@0.4.1
 
 jobs:
-  save_hello_world_output:
+  trigger_fail_on_purpose:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - checkout
-      - run:
-          name: 'Save text to file'
-          command: echo "text to output here" > ~/output.txt
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - output.txt
+      - run: return 1
 
-  print_output_file:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: 'Trying to print text from the filename'
-          command: cat ~/output.txt
-      - print_pipeline_id
+      - run: echo "This failed on purpose!"
+        when: on_fail
+
+  # save_hello_world_output:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: 'Save text to file'
+  #         command: echo "text to output here" > ~/output.txt
+  #     - persist_to_workspace:
+  #         root: ~/
+  #         paths:
+  #           - output.txt
+
+  # print_output_file:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: 'Trying to print text from the filename'
+  #         command: cat ~/output.txt
+  #     - print_pipeline_id
 
 workflows:
   welcome:
